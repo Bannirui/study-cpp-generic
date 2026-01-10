@@ -16,6 +16,7 @@ project(study-cpp-generic
 
 # 平台判断并设置默认编译器 仅在未手动指定时生效
 if (NOT DEFINED CMAKE_C_COMPILER AND NOT DEFINED CMAKE_CXX_COMPILER)
+    message(STATUS "No platform default compiler, setting user-defined compiler")
     if (APPLE)
         message(STATUS "Detected Apple platform")
         set(CMAKE_C_COMPILER /usr/bin/clang CACHE STRING "C compiler" FORCE)
@@ -27,9 +28,8 @@ if (NOT DEFINED CMAKE_C_COMPILER AND NOT DEFINED CMAKE_CXX_COMPILER)
     else ()
         message(FATAL_ERROR "Unsupported platform")
     endif ()
-else ()
-    message(STATUS "Using user-defined compiler: ${CMAKE_C_COMPILER}, ${CMAKE_CXX_COMPILER}")
 endif ()
+message(STATUS "Using compiler: ${CMAKE_C_COMPILER}, ${CMAKE_CXX_COMPILER}")
 
 # c/cpp标准
 set(CMAKE_C_STANDARD 11)
@@ -47,11 +47,11 @@ set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
 set(lib_directory ${CMAKE_SOURCE_DIR}/lib)
 
 # 源文件
-file(GLOB_RECURSE srcs "${CMAKE_CURRENT_SOURCE_DIR}/src/*.cpp")
-file(GLOB_RECURSE hdrs "${CMAKE_CURRENT_SOURCE_DIR}/src/*.h" "${CMAKE_CURRENT_SOURCE_DIR}/src/*.hpp")
+file(GLOB_RECURSE SRCS "${CMAKE_CURRENT_SOURCE_DIR}/src/*.cpp")
+file(GLOB_RECURSE HDRS "${CMAKE_CURRENT_SOURCE_DIR}/src/*.h" "${CMAKE_CURRENT_SOURCE_DIR}/src/*.hpp")
 
 # 添加头文件的目的仅仅是为了让IDEA识别到 新建文件的时候添加索引
-add_library(${PROJECT_NAME} ${srcs} ${hdrs})
+add_library(${PROJECT_NAME} ${SRCS} ${HDRS})
 
 include(CTest)
 enable_testing()
