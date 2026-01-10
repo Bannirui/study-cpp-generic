@@ -6,6 +6,6 @@ add_custom_target(copy_assets
 )
 
 # 构建时触发资源文件复制
-add_executable(main_test main_test.cpp)
-target_link_libraries(main_test PUBLIC study-cpp-generic)
-add_dependencies(main_test copy_assets)
+add_executable(right_val_test right_val_test.cpp)
+target_link_libraries(right_val_test PUBLIC study-cpp-generic)
+add_dependencies(right_val_test copy_assets)
