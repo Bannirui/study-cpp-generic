@@ -13,3 +13,7 @@ add_dependencies(right_val_test copy_assets)
 add_executable(function_object_test function_object_test.cpp)
 target_link_libraries(function_object_test PUBLIC study-cpp-generic)
 add_dependencies(function_object_test copy_assets)
+
+add_executable(foreach_test foreach_test.cpp)
+target_link_libraries(foreach_test PUBLIC study-cpp-generic)
+add_dependencies(foreach_test copy_assets)
