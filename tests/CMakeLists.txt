@@ -17,3 +17,7 @@ add_dependencies(function_object_test copy_assets)
 add_executable(foreach_test foreach_test.cpp)
 target_link_libraries(foreach_test PUBLIC study-cpp-generic)
 add_dependencies(foreach_test copy_assets)
+
+add_executable(find_test find_test.cpp)
+target_link_libraries(find_test PUBLIC study-cpp-generic)
+add_dependencies(find_test copy_assets)
