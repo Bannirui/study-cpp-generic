@@ -25,3 +25,7 @@ add_dependencies(find_test copy_assets)
 add_executable(swap_test swap_test.cpp)
 target_link_libraries(swap_test PRIVATE ${PROJECT_NAME})
 add_dependencies(swap_test copy_assets)
+
+add_executable(transform_test transform_test.cpp)
+target_link_libraries(transform_test PRIVATE ${PROJECT_NAME})
+add_dependencies(transform_test copy_assets)
