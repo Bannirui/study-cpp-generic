@@ -7,7 +7,7 @@
 #include <iostream>
 
 XData::XData(int sz) {
-    std::cout << "XData::XData(int sz)" << std::endl;
+    std::cout << "XData::XData(int sz), sz=" << sz << std::endl;
     this->p = new int(sz);
 }
 
