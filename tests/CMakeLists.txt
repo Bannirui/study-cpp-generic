@@ -5,27 +5,22 @@ add_custom_target(copy_assets
         COMMENT "Copying assets to build and runtime directories"
 )
 
-# 构建时触发资源文件复制
-add_executable(right_val_test right_val_test.cpp)
-target_link_libraries(right_val_test PRIVATE ${PROJECT_NAME})
-add_dependencies(right_val_test copy_assets)
+# Collect all cpp files in this directory
+file(GLOB TEST_SOURCES CONFIGURE_DEPENDS "*.cpp")
 
-add_executable(function_object_test function_object_test.cpp)
-target_link_libraries(function_object_test PRIVATE ${PROJECT_NAME})
-add_dependencies(function_object_test copy_assets)
-
-add_executable(foreach_test foreach_test.cpp)
-target_link_libraries(foreach_test PRIVATE ${PROJECT_NAME})
-add_dependencies(foreach_test copy_assets)
-
-add_executable(find_test find_test.cpp)
-target_link_libraries(find_test PRIVATE ${PROJECT_NAME})
-add_dependencies(find_test copy_assets)
-
-add_executable(swap_test swap_test.cpp)
-target_link_libraries(swap_test PRIVATE ${PROJECT_NAME})
-add_dependencies(swap_test copy_assets)
-
-add_executable(transform_test transform_test.cpp)
-target_link_libraries(transform_test PRIVATE ${PROJECT_NAME})
-add_dependencies(transform_test copy_assets)
+foreach (test_src ${TEST_SOURCES})
+    # Extract file name without extension
+    get_filename_component(test_name ${test_src} NAME_WE)
+    # Create executable
+    add_executable(${test_name} ${test_src})
+    # Link main library
+    target_link_libraries(${test_name}
+            PRIVATE ${PROJECT_NAME}
+    )
+    # 构建时触发资源文件复制
+    add_dependencies(${test_name} copy_assets)
+    # Register with CTest
+    add_test(NAME ${test_name}
+            COMMAND ${test_name}
+    )
+endforeach ()
